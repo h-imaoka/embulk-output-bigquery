@@ -185,6 +185,14 @@ module Embulk
                 Float(val)
               end
             }
+          when 'NUMERIC'
+            Proc.new {|val|
+              next nil if val.nil?
+              with_typecast_error(val) do |val|
+                # lazy
+                String(Float(val))
+              end
+            }
           when 'STRING'
             Proc.new {|val|
               val

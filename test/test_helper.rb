@@ -65,6 +65,7 @@ module Embulk
             Column.new({index: 5, name: 'date', type: :timestamp}),
             Column.new({index: 6, name: 'datetime', type: :timestamp}),
             Column.new({index: 7, name: 'json', type: :json}),
+            Column.new({index: 8, name: 'numeric', type: :string}),
           ])
           task = {
             'column_options' => [
@@ -78,6 +79,7 @@ module Embulk
               {'name' => 'json',      'type' => 'RECORD', 'fields' => [
                 { 'name' => 'key1',   'type' => 'STRING' },
               ]},
+              {'name' => 'numeric',  'type' => 'NUMERIC'},
             ],
           }
           expected = [
@@ -91,6 +93,7 @@ module Embulk
             {name: 'json',      type: 'RECORD', fields: [
               {name: 'key1',    type: 'STRING'},
             ]},
+            {name: 'numeric',  type: 'NUMERIC'},
           ]
           fields = Helper.fields_from_embulk_schema(task, schema)
           assert_equal expected, fields

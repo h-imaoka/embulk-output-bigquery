@@ -220,6 +220,13 @@ module Embulk
           assert_raise { converter.call('foo') }
         end
 
+        def test_numeric
+          converter = ValueConverterFactory.new(SCHEMA_TYPE, 'NUMERIC').create_converter
+          assert_equal nil, converter.call(nil)
+          assert_equal '1.1', converter.call('1.1')
+          assert_raise { converter.call('foo') }
+        end
+
         def test_string
           converter = ValueConverterFactory.new(SCHEMA_TYPE, 'STRING').create_converter
           assert_equal nil, converter.call(nil)
